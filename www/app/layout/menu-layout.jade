@@ -9,6 +9,12 @@ ion-side-menus
       h1.title HomeClub
      ion-content.has-header
       ion-list
-        ion-item(nav-clear='', menu-close='', ui-sref='app.dash') Dashboard
-        ion-item(nav-clear='', menu-close='', ui-sref='app.alerts') Alerts
-        ion-item(nav-clear='', menu-close='', ui-sref='app.reports') Reports
+        a(nav-clear='', menu-close='', ui-sref='app.dash').item.item-icon-left
+          i.icon.ion-home
+          |  Dashboard
+        a(nav-clear='', menu-close='', ui-sref='app.alerts').item.item-icon-left
+          i.icon.ion-alert-circled
+          |  Alerts
+        a(nav-clear='', menu-close='', ui-sref='app.reports').item.item-icon-left
+          i.icon.ion-pie-graph
+          |  Reports
