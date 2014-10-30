@@ -57,6 +57,12 @@ angular.module("hcMobile", [
         mainContent:
           templateUrl: "templates/tab-reports.html"
           controller: "ReportsCtrl"
+    ).state("login",
+      url: '/login'
+      views:
+        '':
+          templateUrl: 'templates/tab-login.html'
+          controller: 'SignInCtrl'
     )
 
-  $urlRouterProvider.otherwise "/app/dash"
+  $urlRouterProvider.otherwise "/login"

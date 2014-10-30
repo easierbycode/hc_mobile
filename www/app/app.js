@@ -42,8 +42,16 @@
           controller: "ReportsCtrl"
         }
       }
+    }).state("login", {
+      url: '/login',
+      views: {
+        '': {
+          templateUrl: 'templates/tab-login.html',
+          controller: 'SignInCtrl'
+        }
+      }
     });
-    return $urlRouterProvider.otherwise("/app/dash");
+    return $urlRouterProvider.otherwise("/login");
   });
 
 }).call(this);

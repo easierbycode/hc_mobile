@@ -2,6 +2,11 @@
 (function() {
   angular.module("starter.controllers", []).controller("DashCtrl", function($scope) {
     return $scope.latest = JSON.parse('{"0007807925C0":{"rssi":-72,"timestamp":"2014-10-24T14:05:04.218Z","sensorHubData1":71.6,"sensorHubRssi":-94,"sensorHubBattery":77},"0007807901D9":{"rssi":-72,"timestamp":"2014-10-25T00:15:18.388Z","sensorHubData1":75.2,"sensorHubRssi":-63,"sensorHubBattery":82},"0007807F26CF":{"rssi":-72,"timestamp":"2014-10-25T00:15:02.307Z","sensorHubData1":73.4,"sensorHubRssi":-86,"sensorHubBattery":85,"sensorHubData2":60,"sensorHubData3":33}}');
+  }).controller('SignInCtrl', function($scope, $state) {
+    return $scope.signIn = function(user) {
+      console.log("Sign-In", user);
+      return $state.go('app.dash');
+    };
   }).controller("AlertsCtrl", function($scope, Friends) {
     return $scope.friends = Friends.all();
   }).controller("ReportsCtrl", function($scope) {
