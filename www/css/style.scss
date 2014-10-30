@@ -1,0 +1,14 @@
+$calm: #6cc6c6 !default;
+
+@import "../lib/ionic/scss/ionic";
+
+.item-divider {
+    background-color: #f8f8f8;
+    color: #919191;
+}
+.item {
+    color: #454f5e;
+}
+.icon {
+    color: $calm;
+}

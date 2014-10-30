@@ -1,0 +1,14 @@
+ion-side-menus
+  ion-pane(ion-side-menu-content='')
+    ion-nav-bar.bar-calm
+      button(menu-toggle='left').button.button-icon.icon.ion-navicon
+    ion-nav-view(name='mainContent')
+
+  ion-side-menu(side='left')
+    header.bar.bar-header.bar-calm
+      h1.title HomeClub
+     ion-content.has-header
+      ion-list
+        ion-item(nav-clear='', menu-close='', ui-sref='app.dash') Dashboard
+        ion-item(nav-clear='', menu-close='', ui-sref='app.alerts') Alerts
+        ion-item(nav-clear='', menu-close='', ui-sref='app.reports') Reports
