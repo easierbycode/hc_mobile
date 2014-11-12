@@ -1,0 +1,12 @@
+ion-view
+  ion-nav-bar.bar-calm
+    ion-nav-buttons(side='left')
+      button(menu-toggle='left').button.button-icon.icon.ion-navicon
+    h1.title Sensor Alerts
+    ion-nav-buttons(side='right')
+      button.button.button-icon.icon.ion-more
+  ion-content.has-header
+    .list
+      .item.item-divider(ng-repeat-start='date in sensorHubEventDates')
+        | {{ date.split('|')[1] }}
+      .item.item-icon-left(ng-repeat="event in sensorHubEventsGrouped[date] | orderBy:'-message.timestamp'", ng-repeat-end='', ng-bind-html='alerttext.sensorHubEvent(event.message, roomNamesBySensorHubMacAddress[event.message.sensorHubMacAddress])')

@@ -12,13 +12,33 @@
 # org.apache.cordova.statusbar required
 angular.module("hcMobile", [
   "ionic"
+  'ngResource'
   "starter.controllers"
   "starter.services"
   'highcharts-ng'
-]).run(($ionicPlatform) ->
+]).run(($ionicPlatform, $rootScope, $ionicLoading, $timeout) ->
   $ionicPlatform.ready ->
     cordova.plugins.Keyboard.hideKeyboardAccessoryBar true  if window.cordova and window.cordova.plugins.Keyboard
     StatusBar.styleDefault()  if window.StatusBar
+
+  $rootScope.showLoading = (msg) ->
+    $ionicLoading.show
+      template: msg or "Loading"
+      animation: "fade-in"
+      showBackdrop: true
+      maxWidth: 200
+      showDelay: 0
+
+  $rootScope.hideLoading = ->
+    $ionicLoading.hide()
+
+  $rootScope.toast = (msg) ->
+    $rootScope.showLoading msg
+    $timeout (->
+      $rootScope.hideLoading()
+      return
+    ), 2999
+    return
 
 ).config ($stateProvider, $urlRouterProvider) ->
 
@@ -45,12 +65,12 @@ angular.module("hcMobile", [
         mainContent:
           templateUrl: "templates/tab-dash.html"
           controller: "DashCtrl"
-    ).state("app.alerts",
+    ).state("app.sensorAlerts",
       url: "/alerts"
       views:
         mainContent:
-          templateUrl: "templates/tab-alerts.html"
-          controller: "AlertsCtrl"
+          templateUrl: "templates/sensor-alerts.html"
+          controller: "SensorAlertsCtrl"
     ).state("app.reports",
       url: "/reports"
       views:
