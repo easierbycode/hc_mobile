@@ -1,31 +1,21 @@
-ion-view(title='Dashboard')
-  ion-content
-    .card
+ion-view
+  ion-nav-bar.bar-calm
+    ion-nav-buttons(side='left')
+      button(menu-toggle='left').button.button-icon.icon.ion-navicon
+    h1.title Dashboard
+    ion-nav-buttons(side='right')
+      button.button.button-icon.icon.ion-more
+  ion-content.has-header
+    .card(ng-repeat='(sensorHubMacAddress, roomName) in currentUser.roomNamesBySensorHubMacAddress')
       .item.item-divider
-        | Upstairs
-        .item-note Oct 24 5:15 PM
-      .item.item-icon-left
+        | {{ roomName }}
+        .item-note {{ latest[sensorHubMacAddress].timestamp | date:'MMM d h:mm a' }}
+      .item.item-icon-left(ng-show='latest[sensorHubMacAddress].sensorHubData1 != undefined')
         i.icon.ion-thermometer
-        | 75.2 ℉
-
-    .card
-      .item.item-divider
-        | Bathroom
-        .item-note Oct 24 7:05 AM
-      .item.item-icon-left
-        i.icon.ion-thermometer
-        | 71.6 ℉
-
-    .card
-      .item.item-divider
-        | Upstairs
-        .item-note Oct 24 5:15 PM
-      .item.item-icon-left
-        i.icon.ion-thermometer
-        | 71.6 ℉
-      .item.item-icon-left
+        | {{ latest[sensorHubMacAddress].sensorHubData1 }} ℉
+      .item.item-icon-left(ng-show='latest[sensorHubMacAddress].sensorHubData2 != undefined')
         i.icon.ion-lightbulb
-        | 60 lux
-      .item.item-icon-left
+        | {{ latest[sensorHubMacAddress].sensorHubData2 }} lux
+      .item.item-icon-left(ng-show='latest[sensorHubMacAddress].sensorHubData3 != undefined')
         i.icon.ion-ios7-rainy
-        | 33%
+        | {{ latest[sensorHubMacAddress].sensorHubData3 }}%

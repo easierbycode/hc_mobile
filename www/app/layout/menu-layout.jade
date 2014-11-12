@@ -1,10 +1,8 @@
 ion-side-menus
   ion-pane(ion-side-menu-content='')
-    ion-nav-bar.bar-calm
-      button(menu-toggle='left').button.button-icon.icon.ion-navicon
     ion-nav-view(name='mainContent')
 
-  ion-side-menu(side='left')
+  ion-side-menu(side='left', expose-aside-when="large")
     header.bar.bar-header.bar-calm
       h1.title HomeClub
      ion-content.has-header
@@ -12,9 +10,12 @@ ion-side-menus
         a(nav-clear='', menu-close='', ui-sref='app.dash').item.item-icon-left
           i.icon.ion-home
           |  Dashboard
-        a(nav-clear='', menu-close='', ui-sref='app.alerts').item.item-icon-left
+        a(nav-clear='', menu-close='', ui-sref='app.networkHubAlerts').item.item-icon-left
           i.icon.ion-alert-circled
-          |  Alerts
+          |  Network Hub Alerts
+        a(nav-clear='', menu-close='', ui-sref='app.sensorAlerts').item.item-icon-left
+          i.icon.ion-alert-circled
+          |  Sensor Alerts
         a(nav-clear='', menu-close='', ui-sref='app.reports').item.item-icon-left
           i.icon.ion-pie-graph
           |  Reports

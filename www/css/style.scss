@@ -9,6 +9,10 @@ $calm: #6cc6c6 !default;
 .item {
     color: #454f5e;
 }
-.icon {
+.item-icon-left .icon {
     color: $calm;
+}
+a {
+    color: #4183c4;
+    text-decoration: none;
 }

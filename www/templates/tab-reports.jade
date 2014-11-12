@@ -1,5 +1,18 @@
-ion-view(title='Reports')
-  ion-content
+ion-view
+  ion-nav-bar.bar-calm
+    ion-nav-buttons(side='left')
+      button(menu-toggle='left').button.button-icon.icon.ion-navicon
+    h1.title Reports
+    ion-nav-buttons(side='right')
+      button.button.button-icon.icon.ion-more
+  ion-content.has-header
     .card
+      .item.item-divider
+        | Upstairs
+        .item-note Climate Sensor
       .item
         highchart(config='chartConfig')
+      .button-bar
+        a.button.button-small.button-light Temperature
+        a.button.button-small.button-light.active Light
+        a.button.button-small.button-light Humidity

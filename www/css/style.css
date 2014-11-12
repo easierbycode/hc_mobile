@@ -8879,7 +8879,11 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 .item {
   color: #454f5e; }
 
-.icon {
+.item-icon-left .icon {
   color: #6cc6c6; }
+
+a {
+  color: #4183c4;
+  text-decoration: none; }
 
 /*# sourceMappingURL=style.css.map */
