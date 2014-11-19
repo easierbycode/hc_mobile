@@ -1,4 +1,4 @@
-angular.module("starter.services", []).factory('SessionFactory', ($window) ->
+angular.module("hcMobile.services", []).factory('SessionFactory', ($window) ->
   _sessionFactory = {}
 
   _sessionFactory.createSession = (user) ->
@@ -29,14 +29,21 @@ angular.module("starter.services", []).factory('SessionFactory', ($window) ->
 
 ).factory('sensorhub', ($resource) ->
 
-  $resource 'http://homeclub.us/api/sensor-hubs'
+  $resource 'http://homeclub.us/api/sensor-hubs/:id',
+    id: '@_id'
+  ,
+    update: { method:'PUT' }
 
+).factory('customeraccount', ($resource) ->
+  $resource 'http://homeclub.us/api/customer-accounts/:id',
+    id: '@_id'
+  ,
+    update: { method:'PUT' }
 ).factory('meta', ->
   {
     "sensorHubTypes": {
-      "1": "Water Protector",
-      "2": "Comfort Director",
-      "3": "Home Defender"
+      "1": "Water",
+      "2": "Climate"
     },
     "roomTypes": {
       "53335728e286cb970c88aaa0": "bedroom",
@@ -74,35 +81,4 @@ angular.module("starter.services", []).factory('SessionFactory', ($window) ->
       "53937bb4c8fa744670f8b85c": "Toilet"
     }
   }
-).factory 'alerttext', (dateFilter) ->
-
-  sensorHubEvent: (message, roomName) ->
-    filteredDate  = dateFilter message.timestamp, 'h:mm a'
-    eventResolved = message.sensorEventEnd isnt 0
-
-    if eventResolved
-      eventType = message.sensorEventEnd
-      resolvedText = ' resolved'
-    else
-      eventType = message.sensorEventStart
-      resolvedText = ''
-
-    switch eventType
-      when 1 then '<i class="icon ion-waterdrop"></i><h2>Water detect' + resolvedText + '<span class="item-note">' + filteredDate + '</span></h2><p>' + roomName + '</p>'
-      when 2 then 'Motion detect'
-      when 3 then '<i class="icon ion-thermometer"></i><h2>Low temperature' + resolvedText + '<span class="item-note">' + filteredDate + '</span></h2><p>' + roomName + '</p>'
-      when 4 then '<i class="icon ion-thermometer"></i><h2>High temperature' + resolvedText + '<span class="item-note">' + filteredDate + '</span></h2><p>' + roomName + '</p>'
-      when 5 then '<i class="icon ion-ios7-rainy"></i><h2>Low humidity' + resolvedText + '<span class="item-note">' + filteredDate + '</span></h2><p>' + roomName + '</p>'
-      when 6 then '<i class="icon ion-ios7-rainy"></i><h2>High humidity' + resolvedText + '<span class="item-note">' + filteredDate + '</span></h2><p>' + roomName + '</p>'
-      when 7 then '<i class="icon ion-lightbulb"></i><h2>Low light' + resolvedText + '<span class="item-note">' + filteredDate + '</span></h2><p>' + roomName + '</p>'
-      when 8 then '<i class="icon ion-lightbulb"></i><h2>High light' + resolvedText + '<span class="item-note">' + filteredDate + '</span></h2><p>' + roomName + '</p>'
-
-
-  gatewayEvent: (message) ->
-    switch message.gatewayEventCode
-      when 1 then '<i class="icon-battery-full"> Going from line power to backup battery'
-      when 2 then '<i class="icon-power-cord"> Going from backup battery to line power'
-      when 3 then '<i class="icon-battery-half"></i> Transition from high to low battery voltage'
-      when 4 then '<i class="icon-battery-empty"></i> Transition from low to critical low battery voltage'
-      when 5 then '<i class="icon-power-cord"></i> Going from shipping/dead to power on (SDG connected to line power)'
-      when 6 then '<i class="icon-connection"></i> Heartbeat'
+)
