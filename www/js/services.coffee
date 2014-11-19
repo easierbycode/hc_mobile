@@ -1,4 +1,7 @@
-angular.module("hcMobile.services", []).factory('SessionFactory', ($window) ->
+services = angular.module 'hcMobile.services', []
+
+
+services.factory('SessionFactory', ($window) ->
   _sessionFactory = {}
 
   _sessionFactory.createSession = (user) ->
@@ -16,18 +19,27 @@ angular.module("hcMobile.services", []).factory('SessionFactory', ($window) ->
     false
 
   _sessionFactory
-).factory('AuthFactory', ($http) ->
+)
+
+
+services.factory('AuthFactory', ($http) ->
   _authFactory = {}
 
   _authFactory.login = (user) ->
     $http.post 'http://homeclub.us/api/login', user
 
   _authFactory
-).factory('latest', ($resource) ->
+)
+
+
+services.factory('latest', ($resource) ->
 
   $resource 'http://homeclub.us/api/latest/sensor-hub-events'
 
-).factory('sensorhub', ($resource) ->
+)
+
+
+services.factory('sensorhub', ($resource) ->
 
   $resource 'http://homeclub.us/api/sensor-hubs/:id',
     id: '@_id'
@@ -39,7 +51,10 @@ angular.module("hcMobile.services", []).factory('SessionFactory', ($window) ->
     id: '@_id'
   ,
     update: { method:'PUT' }
-).factory('meta', ->
+)
+
+
+services.factory('meta', ->
   {
     "sensorHubTypes": {
       "1": "Water",

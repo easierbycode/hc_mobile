@@ -6,6 +6,28 @@ angular.module("hcMobile", [
   "hcMobile.services"
 ]).run(($ionicPlatform, $rootScope, $ionicLoading, $timeout, $state, SessionFactory) ->
   $ionicPlatform.ready ->
+
+    pushNotification = window.plugins.pushNotification
+
+    # - `token`: string.  Google registration ID or Apple device token.
+    token = localStorage.getItem 'token'
+
+    unless token
+
+      # register with APN/GCM, then send token to alerts server
+      if ionic.Platform.isAndroid()
+        pushNotification.register pushCallbacks.GCM.successfulRegistration, pushCallbacks.errorHandler,
+          senderID  : '125902103424'
+          ecb       : 'pushCallbacks.GCM.onNotification'
+
+      if ionic.Platform.isIOS()
+        pushNotification.register pushCallbacks.APN.successfulRegistration, pushCallbacks.errorHandler,
+          badge : 'true'
+          sound : 'true'
+          alert : 'true'
+          ecb   : 'pushCallbacks.APN.onNotification'
+
+
     # Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     # for form inputs)
     if window.cordova and window.cordova.plugins.Keyboard

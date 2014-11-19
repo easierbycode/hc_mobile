@@ -2,6 +2,25 @@
 (function() {
   angular.module("hcMobile", ["ionic", 'ngResource', "hcMobile.controllers", "hcMobile.services"]).run(function($ionicPlatform, $rootScope, $ionicLoading, $timeout, $state, SessionFactory) {
     $ionicPlatform.ready(function() {
+      var pushNotification, token;
+      pushNotification = window.plugins.pushNotification;
+      token = localStorage.getItem('token');
+      if (!token) {
+        if (ionic.Platform.isAndroid()) {
+          pushNotification.register(pushCallbacks.GCM.successfulRegistration, pushCallbacks.errorHandler, {
+            senderID: '125902103424',
+            ecb: 'pushCallbacks.GCM.onNotification'
+          });
+        }
+        if (ionic.Platform.isIOS()) {
+          pushNotification.register(pushCallbacks.APN.successfulRegistration, pushCallbacks.errorHandler, {
+            badge: 'true',
+            sound: 'true',
+            alert: 'true',
+            ecb: 'pushCallbacks.APN.onNotification'
+          });
+        }
+      }
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
