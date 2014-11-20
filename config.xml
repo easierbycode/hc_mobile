@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="us.homeclub.mobile" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <preference name="phonegap-version" value="3.6.3" />
+  <preference name="phonegap-version"           value="3.6.3" />
+  <preference name="prerendered-icon"           value="true" />
   <gap:plugin name="com.ionic.keyboard" version="1.0.3" />
   <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
   <gap:splash src="splash.png" />
