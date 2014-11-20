@@ -4,15 +4,18 @@
     $ionicPlatform.ready(function() {
       var pushNotification, token;
       pushNotification = window.plugins.pushNotification;
-      token = localStorage.getItem('token');
-      if (!token) {
-        if (ionic.Platform.isAndroid()) {
+      if (ionic.Platform.isAndroid()) {
+        token = localStorage.getItem('Android_token');
+        if (!token) {
           pushNotification.register(pushCallbacks.GCM.successfulRegistration, pushCallbacks.errorHandler, {
             senderID: '125902103424',
             ecb: 'pushCallbacks.GCM.onNotification'
           });
         }
-        if (ionic.Platform.isIOS()) {
+      }
+      if (ionic.Platform.isIOS()) {
+        token = localStorage.getItem('iPhone_token');
+        if (!token) {
           pushNotification.register(pushCallbacks.APN.successfulRegistration, pushCallbacks.errorHandler, {
             badge: 'true',
             sound: 'true',

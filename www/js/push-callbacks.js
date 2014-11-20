@@ -7,10 +7,10 @@ function post(url, params) {
 
 window.pushCallbacks = {
   // success callback for PushNotification.setApplicationIconBadgeNumber
-  successHandler: function(result) {},
+  successHandler: function(result) { alert('result: ' + result) },
 
   // error callback for PushNotification.setApplicationIconBadgeNumber
-  errorHandler: function(error) {},
+  errorHandler: function(error) { alert('error: ' + error) },
 
   sendTokenToServer: function(platform, token) {
     var postUrl = 'http://alerts.homeclub.us/devices';
@@ -18,7 +18,7 @@ window.pushCallbacks = {
 
     post(postUrl, params);
 
-    localStorage.setItem('token', token);
+    localStorage.setItem(platform + '_token', token);
   }
 };
 
@@ -26,7 +26,7 @@ window.pushCallbacks = {
 pushCallbacks.APN = {
   onNotification: function(event) {
     if(event.alert) {
-      //alert(event.alert);
+      alert(event.alert);
     }
 
     if(event.sound) {

@@ -9,18 +9,17 @@ angular.module("hcMobile", [
 
     pushNotification = window.plugins.pushNotification
 
-    # - `token`: string.  Google registration ID or Apple device token.
-    token = localStorage.getItem 'token'
-
-    unless token
-
-      # register with APN/GCM, then send token to alerts server
-      if ionic.Platform.isAndroid()
+    # register with APN/GCM, then send token to alerts server
+    if ionic.Platform.isAndroid()
+      token = localStorage.getItem 'Android_token'
+      unless token
         pushNotification.register pushCallbacks.GCM.successfulRegistration, pushCallbacks.errorHandler,
           senderID  : '125902103424'
           ecb       : 'pushCallbacks.GCM.onNotification'
 
-      if ionic.Platform.isIOS()
+    if ionic.Platform.isIOS()
+      token = localStorage.getItem 'iPhone_token'
+      unless token
         pushNotification.register pushCallbacks.APN.successfulRegistration, pushCallbacks.errorHandler,
           badge : 'true'
           sound : 'true'
