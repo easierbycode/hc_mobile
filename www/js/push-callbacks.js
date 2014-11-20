@@ -7,10 +7,10 @@ function post(url, params) {
 
 window.pushCallbacks = {
   // success callback for PushNotification.setApplicationIconBadgeNumber
-  successHandler: function(result) { alert('result: ' + result) },
+  successHandler: function(result) {},
 
   // error callback for PushNotification.setApplicationIconBadgeNumber
-  errorHandler: function(error) { alert('error: ' + error) },
+  errorHandler: function(error) {},
 
   sendTokenToServer: function(platform, token) {
     var postUrl = 'http://alerts.homeclub.us/devices';
@@ -26,7 +26,7 @@ window.pushCallbacks = {
 pushCallbacks.APN = {
   onNotification: function(event) {
     if(event.alert) {
-      alert(event.alert);
+      //alert(event.alert);
     }
 
     if(event.sound) {
