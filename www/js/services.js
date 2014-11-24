@@ -32,7 +32,7 @@
     return _sessionFactory;
   });
 
-  services.factory('AuthFactory', function($http, $window) {
+  services.factory('AuthFactory', function($http) {
     var _authFactory;
     _authFactory = {};
     _authFactory.login = function(user) {

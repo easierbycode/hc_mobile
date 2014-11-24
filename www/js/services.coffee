@@ -28,11 +28,10 @@ services.factory('SessionFactory', ($window) ->
 )
 
 
-services.factory('AuthFactory', ($http, $window) ->
+services.factory('AuthFactory', ($http) ->
   _authFactory = {}
 
   _authFactory.login = (user) ->
-#    $http.post 'http://homeclub.us/api/login', user
     $http.post baseUrl+'/login', user
 
   _authFactory
