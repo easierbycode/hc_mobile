@@ -1,6 +1,12 @@
 services = angular.module 'hcMobile.services', []
 
 
+if window.cordova
+  baseUrl = 'http://homeclub.us/api'
+else
+  baseUrl = '/api'
+
+
 services.factory('SessionFactory', ($window) ->
   _sessionFactory = {}
 
@@ -22,11 +28,12 @@ services.factory('SessionFactory', ($window) ->
 )
 
 
-services.factory('AuthFactory', ($http) ->
+services.factory('AuthFactory', ($http, $window) ->
   _authFactory = {}
 
   _authFactory.login = (user) ->
-    $http.post 'http://homeclub.us/api/login', user
+#    $http.post 'http://homeclub.us/api/login', user
+    $http.post baseUrl+'/login', user
 
   _authFactory
 )
@@ -34,20 +41,20 @@ services.factory('AuthFactory', ($http) ->
 
 services.factory('latest', ($resource) ->
 
-  $resource 'http://homeclub.us/api/latest/sensor-hub-events'
+  $resource baseUrl+'/latest/sensor-hub-events'
 
 )
 
 
 services.factory('sensorhub', ($resource) ->
 
-  $resource 'http://homeclub.us/api/sensor-hubs/:id',
+  $resource baseUrl+'/sensor-hubs/:id',
     id: '@_id'
   ,
     update: { method:'PUT' }
 
 ).factory('customeraccount', ($resource) ->
-  $resource 'http://homeclub.us/api/customer-accounts/:id',
+  $resource baseUrl+'/customer-accounts/:id',
     id: '@_id'
   ,
     update: { method:'PUT' }

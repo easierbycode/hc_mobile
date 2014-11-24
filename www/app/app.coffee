@@ -1,4 +1,10 @@
 
+if window.cordova
+  baseUrl = 'http://homeclub.us/api'
+else
+  baseUrl = '/api'
+
+
 angular.module("hcMobile", [
   "ionic"
   'ngResource'
@@ -72,7 +78,7 @@ angular.module("hcMobile", [
     ).state('app.sensorSetup',
       resolve:
         resolvedCustomerAccount: ($http) ->
-          $http.get 'http://homeclub.us/api/me/customer-account'
+          $http.get baseUrl+'/me/customer-account'
       url: '/sensor-setup'
       views:
         mainContent:

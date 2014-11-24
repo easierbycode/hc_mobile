@@ -1,4 +1,11 @@
+
 app = angular.module "hcMobile.controllers", []
+
+
+if window.cordova
+  baseUrl = 'http://homeclub.us/api'
+else
+  baseUrl = '/api'
 
 
 app.controller("DashCtrl", ($scope, latest, SessionFactory) ->
@@ -59,7 +66,7 @@ app.controller('SignInCtrl', ($scope, $state, $http, $rootScope, AuthFactory, Se
     AuthFactory
       .login(user)
       .success((data) ->
-        $http.get('http://homeclub.us/api/me/customer-account').success((currentUser) ->
+        $http.get(baseUrl+'/me/customer-account').success((currentUser) ->
           sensorhub.query(sensorHubMacAddresses:currentUser.gateways[0].sensorHubs, (sensorHubs) ->
             currentUser.roomNamesBySensorHubMacAddress = {}
             sensorHubs.forEach (sensorHub) ->
