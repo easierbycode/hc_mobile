@@ -14,9 +14,11 @@
   app.controller("DashCtrl", function($scope, latest, SessionFactory) {
     $scope.currentUser = SessionFactory.getSession();
     $scope.refreshLatest = function() {
+      $scope.loading = true;
       return latest.get({
         sensorHubMacAddresses: $scope.currentUser.gateways[0].sensorHubs
       }, function(data) {
+        $scope.loading = false;
         return $scope.latest = data;
       });
     };

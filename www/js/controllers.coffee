@@ -12,7 +12,9 @@ app.controller("DashCtrl", ($scope, latest, SessionFactory) ->
   $scope.currentUser = SessionFactory.getSession()
 
   $scope.refreshLatest = ->
+    $scope.loading = true
     latest.get sensorHubMacAddresses:$scope.currentUser.gateways[0].sensorHubs, (data) ->
+      $scope.loading = false
       $scope.latest = data
 
   $scope.refreshLatest()

@@ -4,7 +4,7 @@ ion-view
       button(menu-toggle='left').button.button-icon.icon.ion-navicon
     h1.title Dashboard
     ion-nav-buttons(side='right')
-      button.button.button-icon.ion-ios7-refresh-empty(ng-click='refreshLatest()')
+      button.button.button-icon(ng-click='refreshLatest()', ng-class="{'ion-refresh':!loading, 'ion-refreshing':loading}")
   ion-content.has-header
     .card(ng-repeat='(sensorHubMacAddress, roomName) in currentUser.roomNamesBySensorHubMacAddress')
       .item.item-divider
