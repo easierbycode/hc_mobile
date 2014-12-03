@@ -66,8 +66,10 @@
   services.factory('meta', function() {
     return {
       "sensorHubTypes": {
-        "1": "Water",
-        "2": "Climate"
+        "1": "Water Detect",
+        "2": "Indoor Climate",
+        "3": "Item Movement",
+        "4": "Human Motion"
       },
       "roomTypes": {
         "53335728e286cb970c88aaa0": "bedroom",
