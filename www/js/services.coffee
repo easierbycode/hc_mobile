@@ -63,9 +63,9 @@ services.factory('sensorhub', ($resource) ->
 services.factory('meta', ->
   {
     "sensorHubTypes": {
-      "1": "Water Detect"
-      "2": "Indoor Climate"
-      "3": "Item Movement"
+      "1": "Water Detect",
+      "2": "Indoor Climate",
+      "3": "Item Movement",
       "4": "Human Motion"
     },
     "roomTypes": {
