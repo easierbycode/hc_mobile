@@ -20,3 +20,5 @@ ion-view
       ion-toggle(ng-show='sensorHub.sensorHubType == 2', toggle-class='toggle-balanced', ng-click="toggleMuted(sensorHub._id, 'light')",  ng-checked="categoryIsNotMuted(sensorHub._id, 'light')") Light alerts
       ion-toggle(ng-show='sensorHub.sensorHubType == 2', toggle-class='toggle-balanced', ng-click="toggleMuted(sensorHub._id, 'humidity')",  ng-checked="categoryIsNotMuted(sensorHub._id, 'humidity')") Humidity alerts
       ion-toggle(ng-show='sensorHub.sensorHubType == 1', toggle-class='toggle-balanced', ng-click="toggleMuted(sensorHub._id, 'water')",  ng-checked="categoryIsNotMuted(sensorHub._id, 'water')") Water alerts
+      ion-toggle(ng-show='sensorHub.sensorHubType == 3', toggle-class='toggle-balanced', ng-checked='true') Movement
+      ion-toggle(ng-show='sensorHub.sensorHubType == 4', toggle-class='toggle-balanced', ng-checked='true') Motion
