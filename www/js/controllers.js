@@ -5,11 +5,7 @@
 
   app = angular.module("hcMobile.controllers", []);
 
-  if (window.cordova) {
-    baseUrl = 'http://homeclub.us/api';
-  } else {
-    baseUrl = '/api';
-  }
+  baseUrl = 'http://homeclub.us/api';
 
   app.controller("DashCtrl", function($scope, latest, SessionFactory) {
     $scope.currentUser = SessionFactory.getSession();
@@ -74,6 +70,7 @@
 
   app.controller('SignInCtrl', function($scope, $state, $http, $rootScope, AuthFactory, SessionFactory, sensorhub, meta) {
     return $scope.login = function(user) {
+      console.log('..logging in');
       $rootScope.showLoading("Authenticating..");
       return AuthFactory.login(user).success(function(data) {
         return $http.get(baseUrl + '/me/customer-account').success(function(currentUser) {

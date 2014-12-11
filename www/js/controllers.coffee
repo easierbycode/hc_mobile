@@ -2,10 +2,8 @@
 app = angular.module "hcMobile.controllers", []
 
 
-if window.cordova
-  baseUrl = 'http://homeclub.us/api'
-else
-  baseUrl = '/api'
+baseUrl = 'http://homeclub.us/api'
+
 
 
 app.controller("DashCtrl", ($scope, latest, SessionFactory) ->
@@ -64,6 +62,7 @@ app.controller('SensorSetupCtrl', ($scope, customeraccount, meta, sensorhub, Ses
 
 app.controller('SignInCtrl', ($scope, $state, $http, $rootScope, AuthFactory, SessionFactory, sensorhub, meta) ->
   $scope.login = (user) ->
+    console.log '..logging in'
     $rootScope.showLoading "Authenticating.."
     AuthFactory
       .login(user)
