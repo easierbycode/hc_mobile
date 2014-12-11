@@ -10,7 +10,8 @@ ion-view(title="HomeClub")
           span.input-label Password
           input(type='password', ng-model='user.password', name='password')
       .padding
-        a.button.button-block.button-calm(ng-click='login(user)')
-          | Log in
+        input(type='submit', value='Login')
+        //a.button.button-block.button-calm(ng-click='login(user)')
+        //  | Log in
         p.text-center
           a(href='#/forgot-password') Forgot password
