@@ -5,10 +5,10 @@ ion-view(title="HomeClub")
       .list
         label.item.item-input
           span.input-label Email
-          input(type='email', ng-model='user.email')
+          input(type='email', ng-model='user.email', name='email')
         label.item.item-input
           span.input-label Password
-          input(type='password', ng-model='user.password')
+          input(type='password', ng-model='user.password', name='password')
       .padding
         a.button.button-block.button-calm(ng-click='login(user)')
           | Log in
