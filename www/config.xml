@@ -9,7 +9,7 @@
   <preference name="phonegap-version"           value="3.6.3" />
   <preference name="prerendered-icon"           value="true" />
 
-  <name>HomeClub Mobile</name>
+  <name>HomeClub</name>
 
   <description>
     Homeclub's awesome mobile app.
