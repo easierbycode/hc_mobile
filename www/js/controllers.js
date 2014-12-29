@@ -62,6 +62,7 @@
       $scope.sensorHubs.forEach(function(sensorHub) {
         return sensorHub.$update();
       });
+      SessionFactory.setRoomNames($scope.sensorHubs);
       return $scope.customerAccount.$update(function(customerAccount) {
         return $rootScope.toast('Saved');
       });
@@ -74,16 +75,11 @@
       $rootScope.showLoading("Authenticating..");
       return AuthFactory.login(user).success(function(data) {
         return $http.get(baseUrl + '/me/customer-account').success(function(currentUser) {
+          SessionFactory.createSession(currentUser);
           return sensorhub.query({
             sensorHubMacAddresses: currentUser.gateways[0].sensorHubs
           }, function(sensorHubs) {
-            currentUser.roomNamesBySensorHubMacAddress = {};
-            sensorHubs.forEach(function(sensorHub) {
-              var name;
-              name = meta.roomTypes[sensorHub.roomType] || meta.sensorHubTypes[String(sensorHub.sensorHubType)];
-              return this[sensorHub._id] = name;
-            }, currentUser.roomNamesBySensorHubMacAddress);
-            SessionFactory.createSession(currentUser);
+            SessionFactory.setRoomNames(sensorHubs);
             $state.go('app.dash');
             return $rootScope.hideLoading();
           });

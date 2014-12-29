@@ -54,6 +54,9 @@ app.controller('SensorSetupCtrl', ($scope, customeraccount, meta, sensorhub, Ses
   $scope.save = ->
     $scope.sensorHubs.forEach (sensorHub) ->
       sensorHub.$update()
+
+    SessionFactory.setRoomNames $scope.sensorHubs
+
     $scope.customerAccount.$update (customerAccount) ->
       $rootScope.toast 'Saved'
 
@@ -68,13 +71,17 @@ app.controller('SignInCtrl', ($scope, $state, $http, $rootScope, AuthFactory, Se
       .login(user)
       .success((data) ->
         $http.get(baseUrl+'/me/customer-account').success((currentUser) ->
+
+          SessionFactory.createSession(currentUser)
+
           sensorhub.query(sensorHubMacAddresses:currentUser.gateways[0].sensorHubs, (sensorHubs) ->
-            currentUser.roomNamesBySensorHubMacAddress = {}
-            sensorHubs.forEach (sensorHub) ->
-              name = meta.roomTypes[sensorHub.roomType] || meta.sensorHubTypes[String(sensorHub.sensorHubType)]
-              @[sensorHub._id] = name
-            , currentUser.roomNamesBySensorHubMacAddress
-            SessionFactory.createSession(currentUser)
+            SessionFactory.setRoomNames sensorHubs
+#            currentUser.roomNamesBySensorHubMacAddress = {}
+#            sensorHubs.forEach (sensorHub) ->
+#              name = meta.roomTypes[sensorHub.roomType] || meta.sensorHubTypes[String(sensorHub.sensorHubType)]
+#              @[sensorHub._id] = name
+#            , currentUser.roomNamesBySensorHubMacAddress
+#            SessionFactory.createSession(currentUser)
             $state.go 'app.dash'
             $rootScope.hideLoading()
           )
