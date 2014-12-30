@@ -1,5 +1,5 @@
 
-if window.cordova
+if window.cordova or location.hostname is 'localhost'
   baseUrl = 'http://homeclub.us/api'
 else
   baseUrl = '/api'

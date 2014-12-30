@@ -2,7 +2,7 @@
 (function() {
   var baseUrl;
 
-  if (window.cordova) {
+  if (window.cordova || location.hostname === 'localhost') {
     baseUrl = 'http://homeclub.us/api';
   } else {
     baseUrl = '/api';
