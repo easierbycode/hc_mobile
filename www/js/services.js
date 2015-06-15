@@ -10,8 +10,8 @@
     "sensorHubTypes": {
       "1": "Water Detect",
       "2": "Indoor Climate",
-      "4": "Item Movement",
-      "3": "Human Motion"
+      "3": "Item Movement",
+      "4": "Human Motion"
     },
     "roomTypes": {
       '53a89614993d0c750d0fe2da': 'bedroom',
