@@ -62,7 +62,7 @@ angular.module("hcMobile", [
     SessionFactory.deleteSession()
     $state.go 'login'
 
-).config ($stateProvider, $urlRouterProvider) ->
+).config(($stateProvider, $urlRouterProvider) ->
 
   $stateProvider
     .state('app',
@@ -93,3 +93,8 @@ angular.module("hcMobile", [
   )
 
   $urlRouterProvider.otherwise '/login'
+
+).filter 'capitalize', ->
+  ( input ) ->
+    unless input is null
+      input.substring( 0, 1 ).toUpperCase() + input.substring( 1 )
