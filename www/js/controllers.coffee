@@ -28,28 +28,29 @@ app.controller('SensorSetupCtrl', ($scope, customeraccount, meta, sensorhub, Ses
     $scope.sensorHubs = sensorHubs
   )
 
-  unless $scope.customerAccount.mutedSensorCategories
-    $scope.customerAccount.mutedSensorCategories = {}
+  $scope.sensorTypes = ['humidity', 'light', 'motion', 'movement', 'temperature', 'water']
 
-  $scope.mutedCategories = (shMacAddress) ->
-    $scope.customerAccount.mutedSensorCategories[shMacAddress] || []
+  sensorTypesBySensorHubTypeId =
+      '1' : ['temperature']
+      '2' : ['humidity', 'light', 'temperature']
+      '3' : ['movement']
+      '4' : ['motion']
 
-  $scope.checkIfMuted = (shMacAddress, category) ->
-    mutedCategories = $scope.mutedCategories(shMacAddress)
-    category in mutedCategories
+  $scope.sensorTypesOfCurrentSensorHub = (sensorHub) ->
+    sensorTypesBySensorHubTypeId[sensorHub.sensorHubType] || []
 
-  $scope.categoryIsNotMuted = (shMacAddress, category) ->
-    isMuted = $scope.checkIfMuted(shMacAddress, category)
-    !isMuted
-
-  $scope.toggleMuted = (shMacAddress, category) ->
-    mutedCategories = $scope.mutedCategories(shMacAddress)
-    if category in mutedCategories
-      $scope.customerAccount.mutedSensorCategories[shMacAddress].splice mutedCategories.indexOf(category), 1
+  $scope.toggleSubscription = (sensorHub, deliveryMethod, sensorType) ->
+    subscriptions = sensorHub["#{deliveryMethod}Subscriptions"]
+    if sensorType in subscriptions
+      subscriptions.splice subscriptions.indexOf(sensorType), 1
     else
-      unless $scope.customerAccount.mutedSensorCategories[shMacAddress]
-        $scope.customerAccount.mutedSensorCategories[shMacAddress] = []
-      $scope.customerAccount.mutedSensorCategories[shMacAddress].push category
+      subscriptions.push sensorType
+
+  $scope.isChecked = (sensorHub, value, deliveryMethod) ->
+    notificationName = "#{deliveryMethod}Subscriptions"
+    checkedNotifications = sensorHub[notificationName]
+    indexOfValue = checkedNotifications.indexOf(value)
+    indexOfValue isnt -1
 
   $scope.save = ->
     $scope.sensorHubs.forEach (sensorHub) ->

@@ -22,6 +22,7 @@
   });
 
   app.controller('SensorSetupCtrl', function($scope, customeraccount, meta, sensorhub, SessionFactory, $rootScope, resolvedCustomerAccount) {
+    var sensorTypesBySensorHubTypeId;
     $scope.currentUser = SessionFactory.getSession();
     $scope.customerAccount = new customeraccount(resolvedCustomerAccount.data);
     $scope.meta = meta;
@@ -30,33 +31,31 @@
     }, function(sensorHubs) {
       return $scope.sensorHubs = sensorHubs;
     });
-    if (!$scope.customerAccount.mutedSensorCategories) {
-      $scope.customerAccount.mutedSensorCategories = {};
-    }
-    $scope.mutedCategories = function(shMacAddress) {
-      return $scope.customerAccount.mutedSensorCategories[shMacAddress] || [];
+    $scope.sensorTypes = ['humidity', 'light', 'motion', 'movement', 'temperature', 'water'];
+    sensorTypesBySensorHubTypeId = {
+      '1': ['temperature'],
+      '2': ['humidity', 'light', 'temperature'],
+      '3': ['movement'],
+      '4': ['motion']
     };
-    $scope.checkIfMuted = function(shMacAddress, category) {
-      var mutedCategories;
-      mutedCategories = $scope.mutedCategories(shMacAddress);
-      return __indexOf.call(mutedCategories, category) >= 0;
+    $scope.sensorTypesOfCurrentSensorHub = function(sensorHub) {
+      return sensorTypesBySensorHubTypeId[sensorHub.sensorHubType] || [];
     };
-    $scope.categoryIsNotMuted = function(shMacAddress, category) {
-      var isMuted;
-      isMuted = $scope.checkIfMuted(shMacAddress, category);
-      return !isMuted;
-    };
-    $scope.toggleMuted = function(shMacAddress, category) {
-      var mutedCategories;
-      mutedCategories = $scope.mutedCategories(shMacAddress);
-      if (__indexOf.call(mutedCategories, category) >= 0) {
-        return $scope.customerAccount.mutedSensorCategories[shMacAddress].splice(mutedCategories.indexOf(category), 1);
+    $scope.toggleSubscription = function(sensorHub, deliveryMethod, sensorType) {
+      var subscriptions;
+      subscriptions = sensorHub["" + deliveryMethod + "Subscriptions"];
+      if (__indexOf.call(subscriptions, sensorType) >= 0) {
+        return subscriptions.splice(subscriptions.indexOf(sensorType), 1);
       } else {
-        if (!$scope.customerAccount.mutedSensorCategories[shMacAddress]) {
-          $scope.customerAccount.mutedSensorCategories[shMacAddress] = [];
-        }
-        return $scope.customerAccount.mutedSensorCategories[shMacAddress].push(category);
+        return subscriptions.push(sensorType);
       }
+    };
+    $scope.isChecked = function(sensorHub, value, deliveryMethod) {
+      var checkedNotifications, indexOfValue, notificationName;
+      notificationName = "" + deliveryMethod + "Subscriptions";
+      checkedNotifications = sensorHub[notificationName];
+      indexOfValue = checkedNotifications.indexOf(value);
+      return indexOfValue !== -1;
     };
     return $scope.save = function() {
       $scope.sensorHubs.forEach(function(sensorHub) {
