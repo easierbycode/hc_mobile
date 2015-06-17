@@ -16,9 +16,15 @@ ion-view
       label.item.item-input.item-select(ng-if='sensorHub.sensorHubType == 1')
         .input-label Water source
         select(ng-model='sensorHub.waterSource', ng-options='waterSourceId as waterSourceName for (waterSourceId, waterSourceName) in meta.waterSources')
-      ion-toggle(toggle-class='toggle-balanced', ng-click="toggleMuted(sensorHub._id, 'temperature')",  ng-checked="categoryIsNotMuted(sensorHub._id, 'temperature')") Temperature alerts
-      ion-toggle(ng-show='sensorHub.sensorHubType == 2', toggle-class='toggle-balanced', ng-click="toggleMuted(sensorHub._id, 'light')",  ng-checked="categoryIsNotMuted(sensorHub._id, 'light')") Light alerts
-      ion-toggle(ng-show='sensorHub.sensorHubType == 2', toggle-class='toggle-balanced', ng-click="toggleMuted(sensorHub._id, 'humidity')",  ng-checked="categoryIsNotMuted(sensorHub._id, 'humidity')") Humidity alerts
-      ion-toggle(ng-show='sensorHub.sensorHubType == 1', toggle-class='toggle-balanced', ng-click="toggleMuted(sensorHub._id, 'water')",  ng-checked="categoryIsNotMuted(sensorHub._id, 'water')") Water alerts
-      ion-toggle(ng-show='sensorHub.sensorHubType == 4', toggle-class='toggle-balanced', ng-click="toggleMuted(sensorHub._id, 'movement')",  ng-checked="categoryIsNotMuted(sensorHub._id, 'movement')") Movement
-      ion-toggle(ng-show='sensorHub.sensorHubType == 3', toggle-class='toggle-balanced', ng-click="toggleMuted(sensorHub._id, 'motion')",  ng-checked="categoryIsNotMuted(sensorHub._id, 'motion')") Motion
+
+      .item(ng-repeat='sensorType in sensorTypesOfCurrentSensorHub(sensorHub)')
+        h3 {{ sensorType | capitalize }} alerts
+        .row
+          .col.item.item-checkbox.padding-horizontal(style='border:none; padding:0 5px;')
+            span.input-label Email
+            label.checkbox.checkbox-balanced
+              input(type='checkbox', style='float:right', ng-checked="isChecked(sensorHub, sensorType, 'email')", ng-click="toggleSubscription(sensorHub, 'email', sensorType)")
+          .col.item.item-checkbox.padding-horizontal(style='border:none; padding:0 5px;')
+            span.input-label SMS
+            label.checkbox.checkbox-balanced
+              input(type='checkbox', style='float:right', ng-checked="isChecked(sensorHub, sensorType, 'sms')", ng-click="toggleSubscription(sensorHub, 'sms', sensorType)")
