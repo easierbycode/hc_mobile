@@ -62,7 +62,11 @@ angular.module("hcMobile", [
     SessionFactory.deleteSession()
     $state.go 'login'
 
-).config(($stateProvider, $urlRouterProvider) ->
+).config(($stateProvider, $urlRouterProvider, $ionicAppProvider) ->
+
+  $ionicAppProvider.identify
+    app_id: '8d6d0e5f'
+    api_key: '08802936b07eeb891a3cad5efc08cb59252541816f75aa8d'
 
   $stateProvider
     .state('app',

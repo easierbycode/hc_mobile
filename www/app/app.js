@@ -61,7 +61,11 @@
       SessionFactory.deleteSession();
       return $state.go('login');
     };
-  }).config(function($stateProvider, $urlRouterProvider) {
+  }).config(function($stateProvider, $urlRouterProvider, $ionicAppProvider) {
+    $ionicAppProvider.identify({
+      app_id: '8d6d0e5f',
+      api_key: '08802936b07eeb891a3cad5efc08cb59252541816f75aa8d'
+    });
     $stateProvider.state('app', {
       url: '/app',
       templateUrl: 'app/layout/menu-layout.html',
